@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="tetris.FullGameTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-10-01T16:57:51" hostname="fedorita" time="0.36">
+  <properties/>
+  <testcase name="testGame5x9" classname="tetris.FullGameTests" time="0.046"/>
+  <testcase name="testGame8x11" classname="tetris.FullGameTests" time="0.17"/>
+  <testcase name="testGame6x10" classname="tetris.FullGameTests" time="0.035"/>
+  <testcase name="testInterleave5x9and8x11" classname="tetris.FullGameTests" time="0.056"/>
+  <testcase name="testInterleave8x11and6x10" classname="tetris.FullGameTests" time="0.049"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
