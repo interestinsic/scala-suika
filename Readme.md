@@ -1,2 +1,2 @@
 # Suika Game 
-From scratch (using some libraries Of course)
+From scratch (using some libraries of course)
