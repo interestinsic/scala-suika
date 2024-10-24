@@ -1,2 +1,2 @@
-# Suika Game - Scala Bonus assignment
-Using the tetris code as a baseline?
+# Suika Game 
+From scratch (using some libraries Of course)
