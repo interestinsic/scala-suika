@@ -1,5 +1,6 @@
 import math._
 import scala.collection.mutable.ListBuffer
+import scala.util.Random
 import scalafx.Includes._
 import scalafx.scene.layout.Pane
 import scalafx.scene.Group
@@ -10,6 +11,9 @@ import scalafx.scene.shape.Circle
 import scalafx.application.JFXApp3
 import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.scene.Scene
+import scalafx.animation.PauseTransition
+import scalafx.util.Duration
+
 
 object FruitEvolution {
   val evolutionMap: Map[Class[_ <: Fruit], () => Fruit] = Map(
@@ -22,15 +26,14 @@ object FruitEvolution {
     classOf[Pear]        -> (() => new Peach()),
     classOf[Peach]       -> (() => new Pineapple()),
     classOf[Pineapple]   -> (() => new Melon()),
-    classOf[Melon]       -> (() => new Watermelon()),
+    classOf[Melon]       -> (() => new Watermelon())
   )
 
+  // Method to get the next fruit; returns None if there's no further evolution
   def getNextFruit(current: Fruit): Option[Fruit] = {
     evolutionMap.get(current.getClass).map(createFruit => createFruit())
   }
 }
-
-
 
 object CollisionUtils {
 
@@ -47,7 +50,7 @@ object CollisionUtils {
     distance < (fruit1.radius.value + fruit2.radius.value)
   }
 
-  def handleCollision(fruitA: Fruit, fruitB: Fruit, fruits: ListBuffer[Fruit], rootPane: Pane): Unit = {
+  def handleCollision(fruitA: Fruit, fruitB: Fruit, fruits: ListBuffer[Fruit], rootPane: Pane): Boolean = {
     if (fruitA.getClass == fruitB.getClass) {
       // Attempt to evolve the fruit
       FruitEvolution.getNextFruit(fruitA) match {
@@ -62,19 +65,21 @@ object CollisionUtils {
           rootPane.children -= fruitA
           rootPane.children -= fruitB
 
-          // Add the new evolved fruit to the game
+          // Add the new evolved fruit to the game (not controlled)
           fruits += newFruit
           rootPane.children += newFruit
 
+          true
+
         case None =>
-          // No further evolution; handle collision normally
           swapVelocities(fruitA, fruitB)
           resolveOverlap(fruitA, fruitB)
+          false
       }
     } else {
-      // Different types; handle collision normally
       swapVelocities(fruitA, fruitB)
       resolveOverlap(fruitA, fruitB)
+      false
     }
   }
 
@@ -102,10 +107,9 @@ object CollisionUtils {
   }
 }
 
-
-case class Fruit(radiusInt: Int) extends Circle {
-
+abstract class Fruit(radiusInt: Int) extends Circle {
   radius = radiusInt
+
   val dt: Double = 0.016 // Approximately 60 FPS
 
   val gravity: Double = 1000.0
@@ -114,7 +118,9 @@ case class Fruit(radiusInt: Int) extends Circle {
   var velocityX: Double = 0.0
   var velocityY: Double = 0.0
 
-  centerX = 200.0
+  val rand = new Random()
+
+  centerX = 60 + rand.nextInt(280)
   centerY = 15.0
 
   def moveLeft(): Unit = {
@@ -195,6 +201,8 @@ class Watermelon extends Fruit(radiusInt = 110){
 
 object SuikaGame extends JFXApp3 {
   val fruits: ListBuffer[Fruit] = ListBuffer()
+  var controlledFruit: Option[Fruit] = None
+  var spawnCooldown: Boolean = false
 
   override def start(): Unit = {
     val rootPane = new Pane {
@@ -210,40 +218,60 @@ object SuikaGame extends JFXApp3 {
         content = rootPane
 
         onKeyPressed = (ke: KeyEvent) => {
-          ke.code match {
-            case scalafx.scene.input.KeyCode.Left =>
-              fruits.last.moveLeft()
-            case scalafx.scene.input.KeyCode.Right =>
-              fruits.last.moveRight()
-            case scalafx.scene.input.KeyCode.Space =>
-              fruits.last.falling = true
-              addFruit(new Cherry())
-            case _ =>
+          controlledFruit match {
+            case Some(fruit) =>
+              ke.code match {
+                case scalafx.scene.input.KeyCode.Left =>
+                  fruit.moveLeft()
+                case scalafx.scene.input.KeyCode.Right =>
+                  fruit.moveRight()
+                case scalafx.scene.input.KeyCode.Space =>
+                  fruit.falling = true
+                  if(!spawnCooldown) {
+                    spawnCooldown = true
+                    val pause = new PauseTransition(Duration(1000)) // 1000 milliseconds = 1 second
+                    pause.onFinished = (_: javafx.event.ActionEvent) => {
+                      addFruit(new Cherry(), isControlled = true)
+                      spawnCooldown = false
+                    }
+                    pause.play()
+                  }
+                case _ =>
+              }
+            case None =>
           }
         }
       }
     }
 
-    def addFruit(fruit: Fruit): Unit = {
+    def addFruit(fruit: Fruit, isControlled: Boolean = false): Unit = {
       fruits += fruit
       rootPane.children += fruit
+      if (isControlled) {
+        controlledFruit = Some(fruit)
+      }
     }
 
-    addFruit(new Cherry())
+    addFruit(new Cherry(), isControlled = true)
 
     val timer = AnimationTimer { now =>
       fruits.foreach(_.step())
 
+      var combinationOccurred = false
+
       for {
         i <- fruits.indices
         j <- (i + 1) until fruits.length
-      }{
+      } {
         val fruitA = fruits(i)
         val fruitB = fruits(j)
-        if(CollisionUtils.isColliding(fruitA, fruitB)) {
-          CollisionUtils.handleCollision(fruitA, fruitB, fruits, rootPane)
+        if (CollisionUtils.isColliding(fruitA, fruitB)) {
+          if (CollisionUtils.handleCollision(fruitA, fruitB, fruits, rootPane)) {
+            combinationOccurred = true
+          }
         }
       }
+
     }
 
     timer.start()
