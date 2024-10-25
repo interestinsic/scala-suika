@@ -1,19 +1,24 @@
 import scalafx.Includes._
+import scala.collection.mutable.ListBuffer
+import scalafx.scene.layout.Pane
+import scalafx.scene.Group
+import scalafx.scene.input.KeyEvent
+import scalafx.animation.AnimationTimer
+import scalafx.scene.paint.Color
+import scalafx.scene.shape.Circle
 import scalafx.application.JFXApp3
 import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.scene.Scene
-import scalafx.scene.paint.Color
-import scalafx.scene.shape.Circle
-import scalafx.scene.Group
-import scalafx.animation.AnimationTimer
-import scalafx.scene.input.KeyEvent
 
 
-class Fruit extends Circle {
+
+abstract class Fruit extends Circle {
   val dt = 0.045
   val gravity = 850
   var falling = false
   centerX = 200
+
+  def step(): Unit
 
   def moveLeft(): Unit = {
     if(!falling) centerX = centerX.value - 10.0
@@ -53,33 +58,48 @@ case class Cherry() extends Fruit {
 }
 
 object SuikaGame extends JFXApp3 {
-  override def start(): Unit = {
-    val fruit = new Cherry
-    val rootGroup = new Group(fruit)
+  // Collection to hold multiple fruits
+  val fruits: ListBuffer[Fruit] = ListBuffer()
 
+  override def start(): Unit = {
+    // Initialize the root pane
+    val rootPane = new Pane {
+      focusTraversable = true // Ensure pane can receive focus
+    }
+
+    // Create the scene with a background color
     stage = new PrimaryStage {
       title = "Suika Game"
-      scene = new Scene(500, 500) {
-        content = rootGroup
+      width = 800
+      height = 600
+      scene = new Scene {
+        fill = Color.AliceBlue
+        content = rootPane
 
         onKeyPressed = (ke: KeyEvent) => {
           ke.code match {
             case scalafx.scene.input.KeyCode.Left =>
-              fruit.moveLeft()
+              fruits.last.moveLeft()
             case scalafx.scene.input.KeyCode.Right =>
-              fruit.moveRight()
+              fruits.last.moveRight()
             case scalafx.scene.input.KeyCode.Space =>
-              fruit.falling = true
-            case _ => // Do nothing for other keys
+              fruits.last.falling = true
+              addFruit(Cherry())
+            case _ =>
           }
         }
-
       }
     }
 
+    def addFruit(fruit: Fruit): Unit = {
+      fruits += fruit
+      rootPane.children += fruit
+    }
+
+    addFruit(Cherry())
+
     val timer = AnimationTimer { now =>
-      // Call step to simulate the gravity effect on the fruit
-      fruit.step()
+      fruits.foreach(_.step())
     }
 
     timer.start()
