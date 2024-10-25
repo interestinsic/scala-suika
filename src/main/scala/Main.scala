@@ -40,7 +40,6 @@ object CollisionUtils {
     sqrt(dx * dx + dy * dy)
   }
 
-
   def isColliding(fruit1: Fruit, fruit2: Fruit): Boolean = {
     val dx = fruit1.centerX.value - fruit2.centerX.value
     val dy = fruit1.centerY.value - fruit2.centerY.value
@@ -48,7 +47,38 @@ object CollisionUtils {
     distance < (fruit1.radius.value + fruit2.radius.value)
   }
 
-  def handleCollision(fruitA: Fruit, fruitB: Fruit): Unit = {
+  def handleCollision(fruitA: Fruit, fruitB: Fruit, fruits: ListBuffer[Fruit], rootPane: Pane): Unit = {
+    if (fruitA.getClass == fruitB.getClass) {
+      // Attempt to evolve the fruit
+      FruitEvolution.getNextFruit(fruitA) match {
+        case Some(newFruit) =>
+          // Calculate the new position as the average of both fruits
+          newFruit.centerX = (fruitA.centerX.value + fruitB.centerX.value) / 2
+          newFruit.centerY = (fruitA.centerY.value + fruitB.centerY.value) / 2
+
+          // Remove the old fruits from the game
+          fruits -= fruitA
+          fruits -= fruitB
+          rootPane.children -= fruitA
+          rootPane.children -= fruitB
+
+          // Add the new evolved fruit to the game
+          fruits += newFruit
+          rootPane.children += newFruit
+
+        case None =>
+          // No further evolution; handle collision normally
+          swapVelocities(fruitA, fruitB)
+          resolveOverlap(fruitA, fruitB)
+      }
+    } else {
+      // Different types; handle collision normally
+      swapVelocities(fruitA, fruitB)
+      resolveOverlap(fruitA, fruitB)
+    }
+  }
+
+  private def swapVelocities(fruitA: Fruit, fruitB: Fruit): Unit = {
     val tempVX = fruitA.velocityX
     fruitA.velocityX = fruitB.velocityX
     fruitB.velocityX = tempVX
@@ -56,7 +86,9 @@ object CollisionUtils {
     val tempVY = fruitA.velocityY
     fruitA.velocityY = fruitB.velocityY
     fruitB.velocityY = tempVY
+  }
 
+  private def resolveOverlap(fruitA: Fruit, fruitB: Fruit): Unit = {
     val overlap = (fruitA.radius.value + fruitB.radius.value) - distance(fruitA, fruitB)
     if (overlap > 0) {
       val angle = atan2(fruitB.centerY.value - fruitA.centerY.value, fruitB.centerX.value - fruitA.centerX.value)
@@ -69,6 +101,7 @@ object CollisionUtils {
     }
   }
 }
+
 
 case class Fruit(radiusInt: Int) extends Circle {
 
@@ -208,7 +241,7 @@ object SuikaGame extends JFXApp3 {
         val fruitA = fruits(i)
         val fruitB = fruits(j)
         if(CollisionUtils.isColliding(fruitA, fruitB)) {
-          CollisionUtils.handleCollision(fruitA, fruitB)
+          CollisionUtils.handleCollision(fruitA, fruitB, fruits, rootPane)
         }
       }
     }
