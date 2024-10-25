@@ -6,21 +6,25 @@ import scalafx.scene.paint.Color
 import scalafx.scene.shape.Circle
 import scalafx.scene.Group
 import scalafx.animation.AnimationTimer
-import scalafx.scene.input.KeyCode
 import scalafx.scene.input.KeyEvent
 
 
 class Fruit extends Circle {
   val dt = 0.045
   val gravity = 850
+  var falling = false
   centerX = 200
 
   def moveLeft(): Unit = {
-    centerX = centerX.value - 5.0
+    if(!falling) centerX = centerX.value - 10.0
   }
 
   def moveRight(): Unit = {
-    centerX = centerX.value + 5.0
+    if(!falling) centerX = centerX.value + 10.0
+  }
+
+  def toggleFalling() = {
+    falling = !falling
   }
 }
 
@@ -29,12 +33,16 @@ case class Cherry() extends Fruit {
   val radiusInt = 15
 
   def step(): Unit = {
-    if (centerY.value + radiusInt >= 500 /* Detect Collision */) {
+    if (centerY.value + radiusInt >= 500) {
       centerY = 500 - radiusInt
       VelocityY = 0.0
     } else {
-      VelocityY += gravity * dt
-      centerY = VelocityY * dt
+      if(falling) {
+        VelocityY += gravity * dt
+        centerY = VelocityY * dt
+      } else {
+        VelocityY = 0.0
+      }
     }
   }
 
@@ -60,6 +68,8 @@ object SuikaGame extends JFXApp3 {
               fruit.moveLeft()
             case scalafx.scene.input.KeyCode.Right =>
               fruit.moveRight()
+            case scalafx.scene.input.KeyCode.Space =>
+              fruit.falling = true
             case _ => // Do nothing for other keys
           }
         }
