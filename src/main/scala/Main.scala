@@ -1,3 +1,4 @@
+import scalafx.Includes._
 import scalafx.application.JFXApp3
 import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.scene.Scene
@@ -53,6 +54,15 @@ object SuikaGame extends JFXApp3 {
       scene = new Scene(500, 500) {
         content = rootGroup
 
+        onKeyPressed = (ke: KeyEvent) => {
+          ke.code match {
+            case scalafx.scene.input.KeyCode.Left =>
+              fruit.moveLeft()
+            case scalafx.scene.input.KeyCode.Right =>
+              fruit.moveRight()
+            case _ => // Do nothing for other keys
+          }
+        }
 
       }
     }

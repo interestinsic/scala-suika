@@ -11,22 +11,22 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sbt: scala-sdk-2.13.12" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-base:21:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-base:21:linux:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-controls:21:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-controls:21:linux:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-fxml:21:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-fxml:21:linux:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-graphics:21:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-graphics:21:linux:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-media:21:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-media:21:linux:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-swing:21:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-swing:21:linux:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-web:21:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.openjfx:javafx-web:21:linux:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-base:20:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-base:20:linux:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-controls:20:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-controls:20:linux:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-fxml:20:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-fxml:20:linux:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-graphics:20:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-graphics:20:linux:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-media:20:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-media:20:linux:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-swing:20:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-swing:20:linux:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-web:20:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.openjfx:javafx-web:20:linux:jar" level="project" />
     <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.13.12:jar" level="project" />
     <orderEntry type="library" name="sbt: org.scala-lang:scala-reflect:2.13.12:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.scalafx:scalafx_2.13:21.0.0-R32:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scalafx:scalafx_2.13:20.0.0-R31:jar" level="project" />
   </component>
 </module>
