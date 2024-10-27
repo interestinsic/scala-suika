@@ -8,5 +8,6 @@ You can place fruits using the **Arrow Keys**, and drop it by pressing the **Spa
 
 # How to Run the game
 1. Install sbt on your device. Or install the dependencies listed in the `build.sbt` file to run the game.
-2. Locate `src/main/scala/Main.scala` and run the object `SuikaGame`
+2. Locate `src/main/scala/Main.scala` and
+3. Run the scala object `SuikaGame`
 
