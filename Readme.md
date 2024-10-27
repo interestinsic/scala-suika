@@ -1,7 +1,7 @@
 # Suika Game 
 Suika Game is a japanese fruit game with the goal of combining fruits of the same type into bigger fruit. In translation "Suika" means melon, in japanese, which in this game is the biggest fruit you can get.
 
-[GamePlay Demo](https://www.youtube.com/watch?v=coM_Bupgaqc)
+[GamePlay Demo Video](https://www.youtube.com/watch?v=coM_Bupgaqc)
 
 ## Controls
 You can place fruits using the **Arrow Keys**, and drop it by pressing the **Space Bar**.
