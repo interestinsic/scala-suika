@@ -5,14 +5,14 @@ import scalafx.Includes._
 import scalafx.scene.layout.Pane
 import scalafx.scene.input.KeyEvent
 import scalafx.animation.AnimationTimer
+import scalafx.animation.PauseTransition
+import scalafx.util.Duration
 import scalafx.scene.paint.Color
-import scalafx.scene.shape.Circle
+import scalafx.scene.shape.{Circle, Line}
 import scalafx.application.JFXApp3
 import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.scene.Scene
-import scalafx.animation.PauseTransition
-import scalafx.util.Duration
-
+import scalafx.scene.text.Text
 
 object FruitEvolution {
   val evolutionMap: Map[Class[_ <: Fruit], () => Fruit] = Map(
@@ -28,6 +28,7 @@ object FruitEvolution {
     classOf[Melon]       -> (() => new Watermelon())
   )
 
+  // Method to get the next fruit; returns None if there's no further evolution
   def getNextFruit(current: Fruit): Option[Fruit] = {
     evolutionMap.get(current.getClass).map(createFruit => createFruit())
   }
@@ -124,11 +125,11 @@ abstract class Fruit(radiusInt: Int) extends Circle {
   centerY = 15.0
 
   def moveLeft(): Unit = {
-    if(movable) centerX = centerX.value - 10.0
+    if (movable) centerX = centerX.value - 10.0
   }
 
   def moveRight(): Unit = {
-    if(movable) centerX = centerX.value + 10.0
+    if (movable) centerX = centerX.value + 10.0
   }
 
   def step(): Unit = {
@@ -152,31 +153,29 @@ abstract class Fruit(radiusInt: Int) extends Circle {
       centerX = 500 - radius.value
     }
   }
-
-
 }
 
 class Cherry extends Fruit(radiusInt = 10) {
   fill = Color.rgb(236, 55, 93)
 }
 
-class Strawberry extends Fruit(radiusInt = 18){
+class Strawberry extends Fruit(radiusInt = 18) {
   fill = Color.rgb(230, 93, 50)
 }
 
-class Grape extends Fruit(radiusInt = 28){
+class Grape extends Fruit(radiusInt = 28) {
   fill = Color.rgb(223, 120, 248)
 }
 
-class Dekopon extends Fruit(radiusInt = 38){
+class Dekopon extends Fruit(radiusInt = 38) {
   fill = Color.rgb(255, 166, 57)
 }
 
-class Orange extends Fruit(radiusInt = 45){
+class Orange extends Fruit(radiusInt = 45) {
   fill = Color.rgb(228, 139, 84)
 }
 
-class Apple extends Fruit(radiusInt = 58){
+class Apple extends Fruit(radiusInt = 58) {
   fill = Color.rgb(251, 63, 75)
 }
 
@@ -184,19 +183,19 @@ class Pear extends Fruit(radiusInt = 65) {
   fill = Color.rgb(235, 215, 73)
 }
 
-class Peach extends Fruit(radiusInt = 78){
+class Peach extends Fruit(radiusInt = 78) {
   fill = Color.rgb(251, 152, 245)
 }
 
-class Pineapple extends Fruit(radiusInt = 88){
+class Pineapple extends Fruit(radiusInt = 88) {
   fill = Color.rgb(242, 236, 20)
 }
 
-class Melon extends Fruit(radiusInt = 100){
+class Melon extends Fruit(radiusInt = 100) {
   fill = Color.rgb(197, 255, 91)
 }
 
-class Watermelon extends Fruit(radiusInt = 110){
+class Watermelon extends Fruit(radiusInt = 110) {
   fill = Color.rgb(0, 153, 0)
 }
 
@@ -204,6 +203,8 @@ object SuikaGame extends JFXApp3 {
   val fruits: ListBuffer[Fruit] = ListBuffer()
   var controlledFruit: Option[Fruit] = None
   var spawnCooldown: Boolean = false
+
+  var gameOver: Boolean = false
 
   def selector(i: Int): Fruit = {
     i match {
@@ -216,10 +217,22 @@ object SuikaGame extends JFXApp3 {
     }
   }
 
+
   override def start(): Unit = {
     val rootPane = new Pane {
       focusTraversable = true
     }
+
+    val horizontalLine = new Line {
+      startX = 0
+      startY = 80
+      endX = 500
+      endY = 80
+      stroke = Color.Black
+      strokeWidth = 2
+    }
+
+    rootPane.children += horizontalLine
 
     stage = new PrimaryStage {
       title = "Suika Game"
@@ -230,63 +243,90 @@ object SuikaGame extends JFXApp3 {
         content = rootPane
 
         onKeyPressed = (ke: KeyEvent) => {
-          controlledFruit match {
-            case Some(fruit) =>
-              ke.code match {
-                case scalafx.scene.input.KeyCode.Left =>
-                  fruit.moveLeft()
-                case scalafx.scene.input.KeyCode.Right =>
-                  fruit.moveRight()
-                case scalafx.scene.input.KeyCode.Space =>
-                  fruit.falling = true
-                  fruit.movable = false
-                  if(!spawnCooldown) {
-                    spawnCooldown = true
-                    val pause = new PauseTransition(Duration(1000)) // 1000 milliseconds = 1 second
-                    pause.onFinished = (_: javafx.event.ActionEvent) => {
-                      addFruit(isControlled = true)
-                      spawnCooldown = false
+          if (!gameOver) {
+            controlledFruit match {
+              case Some(fruit) =>
+                ke.code match {
+                  case scalafx.scene.input.KeyCode.Left =>
+                    fruit.moveLeft()
+                  case scalafx.scene.input.KeyCode.Right =>
+                    fruit.moveRight()
+                  case scalafx.scene.input.KeyCode.Space =>
+                    fruit.falling = true
+                    fruit.movable = false
+                    if (!spawnCooldown) {
+                      spawnCooldown = true
+                      val pause = new PauseTransition(Duration(1000)) // 1 second delay
+                      pause.onFinished = (_: javafx.event.ActionEvent) => {
+                        addFruit(isControlled = true)
+                        spawnCooldown = false
+                      }
+                      pause.play()
                     }
-                    pause.play()
-                  }
-                case _ =>
-              }
-            case None =>
+                  case _ =>
+                }
+              case None =>
+            }
           }
         }
       }
     }
 
     def addFruit(isControlled: Boolean = false): Unit = {
-     val rand = new Random()
-     val fruit = selector(rand.nextInt(6))
-      fruits += fruit
-      rootPane.children += fruit
-      if (isControlled) {
-        controlledFruit = Some(fruit)
+      if (!gameOver) {
+        val rand = new Random()
+        val fruit = selector(rand.nextInt(6))
+        fruits += fruit
+        rootPane.children += fruit
+        if (isControlled) {
+          controlledFruit = Some(fruit)
+        }
       }
     }
 
     addFruit(isControlled = true)
 
+    def showGameOverScreen(rootPane: Pane): Unit = {
+      val gameOverText = new Text {
+        text = "Game Over"
+        fill = Color.Red
+        style = "-fx-font-size: 48px; -fx-font-weight: bold;"
+        layoutX = 500 / 2 - 100 // Adjust to center the text
+        layoutY = 500 / 2
+      }
+      rootPane.children += gameOverText
+    }
+
     val timer = AnimationTimer { now =>
-      fruits.foreach(_.step())
+      if (!gameOver) { // Only run the game loop if not game over
+        fruits.foreach(_.step())
 
-      var combinationOccurred = false
+        var combinationOccurred = false
 
-      for {
-        i <- fruits.indices
-        j <- (i + 1) until fruits.length
-      } {
-        val fruitA = fruits(i)
-        val fruitB = fruits(j)
-        if (CollisionUtils.isColliding(fruitA, fruitB)) {
-          if (CollisionUtils.handleCollision(fruitA, fruitB, fruits, rootPane)) {
-            combinationOccurred = true
+        for {
+          i <- fruits.indices
+          j <- (i + 1) until fruits.length
+        } {
+          val fruitA = fruits(i)
+          val fruitB = fruits(j)
+          if (CollisionUtils.isColliding(fruitA, fruitB)) {
+            if (CollisionUtils.handleCollision(fruitA, fruitB, fruits, rootPane)) {
+              combinationOccurred = true
+            }
+          }
+        }
+
+        val yThreshold = 80
+
+        val nonControlledFruits = fruits.filterNot(_ == controlledFruit.orNull)
+        if (nonControlledFruits.nonEmpty) {
+          val lastPlacedFruit = nonControlledFruits.last
+          if (lastPlacedFruit.centerY.value < yThreshold) {
+            gameOver = true
+            showGameOverScreen(rootPane)
           }
         }
       }
-
     }
 
     timer.start()

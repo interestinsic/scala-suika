@@ -5,16 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d14b8aff-2eae-4bd2-b788-b36fa5defdab" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/OST.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/OST.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/SuikaGame.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/SuikaGame.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/Apple.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/Apple.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/Cherry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/Cherry.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/CollisionUtils$.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/CollisionUtils$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/Dekopon.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/Dekopon.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/Fruit.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/Fruit.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/SuikaGame$$anon$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/SuikaGame$$anon$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/SuikaGame$$anon$2$$anon$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/SuikaGame$$anon$2$$anon$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/FruitEvolution$.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/FruitEvolution$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/Grape.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/Grape.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/Melon.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/Melon.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/Orange.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/Orange.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/Peach.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/Peach.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/Pear.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/Pear.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/Pineapple.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/Pineapple.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/Strawberry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/Strawberry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/SuikaGame$$anon$2$$anon$3.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/SuikaGame$$anon$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/SuikaGame$$anon$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/SuikaGame$.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/SuikaGame$.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/SuikaGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/SuikaGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/classes/Watermelon.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/classes/Watermelon.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +47,7 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="oofp-suika" type="f1a62948:ProjectNode" />
+                <item name="SuikaGame" type="f1a62948:ProjectNode" />
               </path>
             </expand>
             <select />
@@ -53,37 +66,41 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2mBbVnvDl86bnRNc6e2sj5sLqg6" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.JFXApp3Demo.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SuikaGame.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TetrisGame.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build OOFP-suika.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.OOFP-suika [:SuikaGame.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.OOFP-tetris [:TetrisGame.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.OOFP-tetris [:zip].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.RotationTests (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.RotationTests.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TetrisTestSuite3_1.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TetrisTestSuite3_2.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/max/Programming/VU/OOFP/OOFP-suika&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.JFXApp3Demo.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.SuikaGame.executor": "Run",
+    "Application.TetrisGame.executor": "Run",
+    "Gradle.Build OOFP-suika.executor": "Run",
+    "Gradle.OOFP-suika [:SuikaGame.main()].executor": "Run",
+    "Gradle.OOFP-tetris [:TetrisGame.main()].executor": "Run",
+    "Gradle.OOFP-tetris [:zip].executor": "Run",
+    "Gradle.RotationTests (1).executor": "Run",
+    "Gradle.RotationTests.executor": "Run",
+    "Gradle.TetrisTestSuite3_1.executor": "Run",
+    "Gradle.TetrisTestSuite3_2.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/max/Programming/VU/OOFP/OOFP-suika",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propCompiler"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.SuikaGame">
     <configuration name="JFXApp3Demo" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="JFXApp3Demo" />
@@ -151,5 +168,8 @@
       <updated>1726552942777</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
